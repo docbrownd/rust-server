@@ -96,11 +96,12 @@ end
 
 function handler.onPlayerChangeSlot(playerId)
   local playerInfo = net.get_player_info(playerId)
-  local coalition, slot
+  local coalition, slot, ucid
 
   if playerInfo ~= nil then
     coalition = playerInfo.side + 1 -- offsetting for grpc COALITION enum
     slot = playerInfo.slot
+    ucid = playerInfo.ucid
   end
 
   grpc.event({
@@ -109,7 +110,8 @@ function handler.onPlayerChangeSlot(playerId)
       type = "playerChangeSlot",
       playerId = playerId,
       coalition = coalition,
-      slotId = slot
+      slotId = slot,
+      ucid = ucid
     },
   })
 end
