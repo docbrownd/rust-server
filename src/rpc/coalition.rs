@@ -61,4 +61,20 @@ impl CoalitionService for MissionRpc {
         let res = self.request("getPlayerUnits", request).await?;
         Ok(Response::new(res))
     }
+
+    async fn get_all_ground_units(
+        &self,
+        request: Request<coalition::v0::GetAllGroundUnitRequest>,
+    ) -> Result<Response<coalition::v0::GetUnitsResponse>, Status> {
+        let res = self.request("getAllGroundUnits", request).await?;
+        Ok(Response::new(res))
+    }
+
+    async fn destroy_units(
+        &self,
+        request: Request<coalition::v0::DestroyUnitsRequest>,
+    ) -> Result<Response<coalition::v0::DestroyUnitsResponse>, Status> {
+        let res = self.request("destroyUnits", request).await?;
+        Ok(Response::new(res))
+    }
 }

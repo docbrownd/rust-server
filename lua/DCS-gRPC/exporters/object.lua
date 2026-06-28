@@ -31,7 +31,8 @@ GRPC.exporters.unit = function(unit)
     group = locgroup,
     numberInGroup = unit:getNumber(),
     rawTransform = GRPC.exporters.rawTransform(unit),
-    life = unit:getLife()
+    life = unit:getLife(),
+    isActive = unit:isActive()
   }
 end
 

@@ -39,7 +39,24 @@ service CoalitionService {
 
   // https://wiki.hoggitworld.com/view/DCS_func_getPlayers
   rpc GetPlayerUnits(GetPlayerUnitsRequest) returns (GetPlayerUnitsResponse) {}
+
+  rpc GetAllGroundUnits(GetAllGroundUnitRequest) returns (GetUnitsResponse) {}
+
+  rpc DestroyUnits(DestroyUnitsRequest) returns (DestroyUnitsResponse) {}
 }
+
+message DestroyUnitsRequest {
+  repeated string names = 1;
+}
+
+message GetAllGroundUnitRequest {
+
+}
+
+message DestroyUnitsResponse {
+  
+}
+
 
 message AddGroupRequest {
   // The coalition is determined by the provided Country
@@ -222,5 +239,9 @@ message GetPlayerUnitsRequest {
 }
 
 message GetPlayerUnitsResponse {
+  repeated dcs.common.v0.Unit units = 1;
+}
+
+message GetUnitsResponse {
   repeated dcs.common.v0.Unit units = 1;
 }

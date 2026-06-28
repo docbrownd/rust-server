@@ -223,12 +223,12 @@ pub fn event(lua: &Lua, event: Value) -> LuaResult<()> {
 
 // This method is called on each simulation frame, so make sure to do as few as possible (avoid
 // even getting a lock on [SERVER]).
-#[unsafe(no_mangle)]
-pub fn simulation_frame(_lua: &Lua, time: f64) -> LuaResult<()> {
-    crate::fps::frame(time);
+// #[unsafe(no_mangle)]
+// pub fn simulation_frame(_lua: &Lua, time: f64) -> LuaResult<()> {
+//     crate::fps::frame(time);
 
-    Ok(())
-}
+//     Ok(())
+// }
 
 #[unsafe(no_mangle)]
 pub fn log_error(_: &Lua, err: String) -> LuaResult<()> {
@@ -297,7 +297,7 @@ pub fn dcs_grpc(lua: &Lua) -> LuaResult<LuaTable> {
     exports.set("stop", lua.create_function(stop)?)?;
     exports.set("next", lua.create_function(next)?)?;
     exports.set("event", lua.create_function(event)?)?;
-    exports.set("simulationFrame", lua.create_function(simulation_frame)?)?;
+    // exports.set("simulationFrame", lua.create_function(simulation_frame)?)?;
     exports.set("tts", lua.create_function(tts)?)?;
     exports.set("logError", lua.create_function(log_error)?)?;
     exports.set("logWarning", lua.create_function(log_warning)?)?;

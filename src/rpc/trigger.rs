@@ -133,4 +133,12 @@ impl TriggerService for MissionRpc {
         let res = self.request("signalFlare", request).await?;
         Ok(Response::new(res))
     }
+
+    async fn get_all_zones(
+        &self,
+        request: Request<trigger::v0::GetZonesRequest>,
+    ) -> Result<Response<trigger::v0::ZonesResponse>, Status> {
+        let res = self.request("getZones", request).await?;
+        Ok(Response::new(res))
+    }
 }

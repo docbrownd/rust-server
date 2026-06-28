@@ -60,6 +60,17 @@ service TriggerService {
 
   // https://wiki.hoggitworld.com/view/DCS_func_signalFlare
   rpc SignalFlare(SignalFlareRequest) returns (SignalFlareResponse) {}
+
+  rpc GetAllZones(GetZonesRequest) returns (ZonesResponse) {}
+
+}
+
+message GetZonesRequest {
+
+}
+
+message ZonesResponse {
+  repeated dcs.common.v0.Zone zones = 1; 
 }
 
 message OutTextRequest {

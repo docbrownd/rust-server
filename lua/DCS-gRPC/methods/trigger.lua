@@ -23,6 +23,26 @@ local function getMarkId()
     return idx
 end
 
+local function deepCopy(object)
+  local lookup_table={}
+  local function _copy(object)
+      if type(object) ~= "table" then
+          return object
+      elseif lookup_table[object] then
+          return lookup_table[object]
+      end
+      local new_table = {}
+      lookup_table[object] = new_table
+      for index,value in pairs(object) do
+          new_table[_copy(index)] = _copy(value)
+      end
+      return setmetatable(new_table,getmetatable(object))
+  end
+  local objectreturn = _copy(object)
+  return objectreturn
+end
+
+
 GRPC.methods.outText = function(params)
   trigger.action.outText(params.text, params.displayTime, params.clearView)
 
@@ -203,4 +223,46 @@ GRPC.methods.signalFlare = function(params)
   trigger.action.signalFlare(groundPoint, params.color - 1, params.azimuth)
 
   return GRPC.success({})
+end
+
+GRPC.methods.getZones = function(params)
+  local result = {}
+  if env.mission.triggers and env.mission.triggers.zones then
+    for zone_ind, zone_data in pairs(env.mission.triggers.zones) do
+      local zone = {}
+      zone.point = {x = zone_data.x, z = zone_data.y, y = land.getHeight({x = zone_data.x, y = zone_data.y})}
+      zone.id = zone_data.name
+      zone.position = GRPC.exporters.position({x = zone_data.x, y = 0, z = zone_data.y})
+      zone.radius = zone_data.radius 
+      zone.type = zone_data.type
+      zone.verticies = {}
+      if zone_data.verticies ~= nil then
+        
+
+        zone.verticies[1] = {
+          x = zone_data.verticies[1].x or 0,
+          y = 0,
+          z = zone_data.verticies[1].y or 0
+        }
+        zone.verticies[2] = {
+          x = zone_data.verticies[2].x or 0,
+          y = 0,
+          z = zone_data.verticies[2].y or 0
+        }                  
+        zone.verticies[3] = {
+          x = zone_data.verticies[3].x or 0,
+          y = 0,
+          z = zone_data.verticies[3].y or 0
+        }                  
+        zone.verticies[4] = {
+          x = zone_data.verticies[4].x or 0,
+          y = 0,
+          z = zone_data.verticies[4].y or 0
+        }
+      end
+      result[#result + 1] = zone
+    end
+    
+  end
+  return GRPC.success({zones = result})
 end

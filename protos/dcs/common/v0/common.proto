@@ -237,7 +237,7 @@ message Unit {
   // destroyed
   uint32 number_in_group = 11;
   float life = 12;
-
+  bool is_active = 13;
 }
 
 /**
@@ -471,4 +471,13 @@ message Contact {
     Unit unit = 5;
     Weapon weapon = 6;
   }
+}
+
+message Zone {
+  string id = 1;
+  Vector point = 2;
+  Position position = 3;
+  double radius = 4;
+  uint32 type = 5;
+  repeated Vector verticies = 6;
 }

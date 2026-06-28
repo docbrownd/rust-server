@@ -264,3 +264,35 @@ GRPC.methods.getPlayerUnits = function(params)
   end
   return GRPC.success({units = result})
 end
+
+-- copy of getGroups but return all active unit in game 
+GRPC.methods.getAllGroundUnits = function(params)
+  local result = {}
+   -- https://wiki.hoggitworld.com/view/DCS_func_getGroups
+  local  groups = coalition.getGroups(coalition.side.RED, Group.Category.GROUND)
+
+  for _, group in ipairs(groups) do
+    if group == nil then
+      return GRPC.errorNotFound("group does not exist")
+    end
+    for i, unit in ipairs(group:getUnits()) do
+      if Object.isExist(unit) then  
+        result[#result + 1] = GRPC.exporters.unit(unit)
+      end 
+    end
+  end
+
+
+  return GRPC.success({units = result})
+end
+
+GRPC.methods.destroyUnits = function(params)
+  for _, unitName in ipairs(params.names) do
+    local unit = Unit.getByName(unitName)
+    if unit and Object.isExist(unit) then unit:destroy() end
+  end
+  return GRPC.success({})
+
+end
+
+  

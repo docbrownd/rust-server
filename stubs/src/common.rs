@@ -92,6 +92,7 @@ pub mod v0 {
         number_in_group: u32,
         raw_transform: Option<RawTransform>,
         life: f32,
+        is_active:bool
     }
 
     impl From<UnitIntermediate> for Unit {
@@ -107,8 +108,9 @@ pub mod v0 {
                 number_in_group,
                 raw_transform,
                 life,
+                is_active
             } = i;
-            let transform = Transform::from(raw_transform.unwrap_or_default());
+            let transform: Transform = Transform::from(raw_transform.unwrap_or_default());
             Unit {
                 id,
                 name,
@@ -122,6 +124,7 @@ pub mod v0 {
                 group,
                 number_in_group,
                 life,
+                is_active
             }
         }
     }
