@@ -297,7 +297,7 @@ pub fn dcs_grpc(lua: &Lua) -> LuaResult<LuaTable> {
     exports.set("stop", lua.create_function(stop)?)?;
     exports.set("next", lua.create_function(next)?)?;
     exports.set("event", lua.create_function(event)?)?;
-    // exports.set("simulationFrame", lua.create_function(simulation_frame)?)?;
+    exports.set("simulationFrame", lua.create_function(simulation_frame)?)?;
     exports.set("tts", lua.create_function(tts)?)?;
     exports.set("logError", lua.create_function(log_error)?)?;
     exports.set("logWarning", lua.create_function(log_warning)?)?;
