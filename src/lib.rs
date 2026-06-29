@@ -223,12 +223,12 @@ pub fn event(lua: &Lua, event: Value) -> LuaResult<()> {
 
 // This method is called on each simulation frame, so make sure to do as few as possible (avoid
 // even getting a lock on [SERVER]).
-// #[unsafe(no_mangle)]
-// pub fn simulation_frame(_lua: &Lua, time: f64) -> LuaResult<()> {
-//     crate::fps::frame(time);
+#[unsafe(no_mangle)]
+pub fn simulation_frame(_lua: &Lua, time: f64) -> LuaResult<()> {
+    crate::fps::frame(time);
 
-//     Ok(())
-// }
+    Ok(())
+}
 
 #[unsafe(no_mangle)]
 pub fn log_error(_: &Lua, err: String) -> LuaResult<()> {
