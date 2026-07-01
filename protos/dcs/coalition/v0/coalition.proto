@@ -242,6 +242,13 @@ message GetPlayerUnitsResponse {
   repeated dcs.common.v0.Unit units = 1;
 }
 
+message UnitMission {
+  dcs.common.v0.Unit unit = 1;
+  float life = 2;
+  bool is_active = 3;
+  repeated string attributs = 4;
+}
+
 message GetUnitsResponse {
-  repeated dcs.common.v0.Unit units = 1;
+  repeated UnitMission units = 1;
 }

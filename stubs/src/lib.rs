@@ -62,9 +62,7 @@ mod tests {
                                     "coalition": 3,
                                     "type": "FA-18C_hornet",
                                     "playerName": "New callsign",
-                                    "numberInGroup": 1,
-                                    "life" : 20,
-                                    "isActive":true
+                                    "numberInGroup": 1
                                 }
                             }
 		                },
@@ -112,9 +110,7 @@ mod tests {
                                 heading: Default::default(),
                                 speed: Default::default(),
                                 velocity: Some(Default::default())
-                            }),
-                            life: 20.0,
-                            is_active : true
+                            })
                         }))
                     }),
                     visibility: Some(event::mark_add_event::Visibility::Coalition(

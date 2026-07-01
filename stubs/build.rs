@@ -65,6 +65,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "dcs.mission.v0.StreamEventsResponse.GroupCommandEvent.details",
             r#"#[serde(with = "crate::utils::proto_struct")]"#,
         )
+        .type_attribute(
+            "dcs.common.v0.UnitMission",
+            "#[serde(from = \"UnitMissionIntermediate\")]",
+        )
         .build_server(cfg!(feature = "server"))
         .build_client(cfg!(feature = "client"))
         .compile_protos(&["../protos/dcs/dcs.proto"], &["../protos"])?;

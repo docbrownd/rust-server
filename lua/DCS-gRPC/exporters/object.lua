@@ -30,9 +30,7 @@ GRPC.exporters.unit = function(unit)
     playerName = Unit.getPlayerName(unit),
     group = locgroup,
     numberInGroup = unit:getNumber(),
-    rawTransform = GRPC.exporters.rawTransform(unit),
-    life = unit:getLife(),
-    isActive = unit:isActive()
+    rawTransform = GRPC.exporters.rawTransform(unit)
   }
 end
 

@@ -2,6 +2,44 @@
 -- RPC coalition actions
 -- https://wiki.hoggitworld.com/view/DCS_singleton_coalition
 --
+UTILSDB = {}
+
+function UTILSDB.PrintTableToLog(table,indent,noprint)
+        local text="\n"
+        if not table or type(table)~="table"then
+        env.warning("No table passed!")
+        return nil
+        end
+        if not indent then indent=0 end
+        for k,v in pairs(table)do
+        if string.find(k," ")then k='"'..k..'"'end
+        if type(v)=="table"then
+        if not noprint then
+        env.info(string.rep("  ",indent)..tostring(k).." = {")
+        end
+        text=text..string.rep("  ",indent)..tostring(k).." = {\n"
+        text=text..tostring(UTILSDB.PrintTableToLog(v,indent+1)).."\n"
+        if not noprint then
+        env.info(string.rep("  ",indent).."},")
+        end
+        text=text..string.rep("  ",indent).."},\n"
+        elseif type(v)=="function"then
+        else
+        local value
+        if tostring(v)=="true"or tostring(v)=="false"or tonumber(v)~=nil then
+        value=v
+        else
+        value='"'..tostring(v)..'"'
+        end
+        if not noprint then
+        env.info(string.rep("  ",indent)..tostring(k).." = "..tostring(value)..",\n")
+        end
+        text=text..string.rep("  ",indent)..tostring(k).." = "..tostring(value)..",\n"
+        end
+        end
+        return text
+    end
+
 
 local GRPC = GRPC
 local coalition = coalition
@@ -277,7 +315,22 @@ GRPC.methods.getAllGroundUnits = function(params)
     end
     for i, unit in ipairs(group:getUnits()) do
       if Object.isExist(unit) then  
-        result[#result + 1] = GRPC.exporters.unit(unit)
+        local atts = unit:getDesc().attributes
+        
+
+        local attributs = {}
+        for att, val in pairs(atts) do 
+          if val then 
+            attributs[#attributs + 1] = att
+          end 
+        end
+        result[#result + 1] = {
+          unit = GRPC.exporters.unit(unit),
+          life = unit:getLife(),
+          isActive = unit:isActive(),
+          attributs = attributs
+          --
+        }
       end 
     end
   end

@@ -1,6 +1,8 @@
 pub mod v0 {
     use std::ops::Neg;
 
+use crate::coalition::v0::UnitMission;
+
     tonic::include_proto!("dcs.common.v0");
 
     #[derive(Default, serde::Deserialize)]
@@ -90,9 +92,7 @@ pub mod v0 {
         player_name: Option<String>,
         group: Option<Group>,
         number_in_group: u32,
-        raw_transform: Option<RawTransform>,
-        life: f32,
-        is_active:bool
+        raw_transform: Option<RawTransform>
     }
 
     impl From<UnitIntermediate> for Unit {
@@ -107,8 +107,6 @@ pub mod v0 {
                 group,
                 number_in_group,
                 raw_transform,
-                life,
-                is_active
             } = i;
             let transform: Transform = Transform::from(raw_transform.unwrap_or_default());
             Unit {
@@ -122,9 +120,27 @@ pub mod v0 {
                 velocity: Some(transform.velocity),
                 player_name,
                 group,
-                number_in_group,
-                life,
-                is_active
+                number_in_group
+            }
+        }
+    }
+
+     #[derive(serde::Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    struct UnitMissionIntermediate {
+        unit : UnitIntermediate,
+        live : f32,
+        is_active: bool,
+        attributs : Vec<String>
+    }
+
+    impl From<UnitMissionIntermediate> for UnitMission {
+        fn from(value: UnitMissionIntermediate) -> Self {
+            Self { 
+                unit: Some(value.unit.into()), 
+                life: value.live, 
+                is_active: value.is_active, 
+                attributs: value.attributs
             }
         }
     }
