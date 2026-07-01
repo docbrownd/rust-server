@@ -266,3 +266,49 @@ GRPC.methods.getZones = function(params)
   end
   return GRPC.success({zones = result})
 end
+
+GRPC.methods.markToAllBatch = function(params)
+  for _, mark in ipairs(params.marks) do
+    local packedParams = {}
+    for _, value in ipairs(mark.points) do
+      table.insert(packedParams, {x=value.x, y=value.alt, z=value.y})
+    end
+    table.insert(packedParams, {
+      mark.borderColor.red,
+      mark.borderColor.green,
+      mark.borderColor.blue,
+      mark.borderColor.alpha
+    })
+    table.insert(packedParams, {
+      mark.fillColor.red,
+      mark.fillColor.green,
+      mark.fillColor.blue,
+      mark.fillColor.alpha
+    })
+    table.insert(packedParams, mark.lineType)
+    table.insert(packedParams, mark.readOnly)
+    table.insert(packedParams, mark.message)
+
+    trigger.action.markupToAll(mark.shape, -1, mark.id, unpack(packedParams))
+  end
+  return GRPC.success({})
+
+end
+
+
+GRPC.methods.textToAll = function(params)
+  local color = {params.color.red, params.color.green, params.color.blue, params.color.alpha}
+  local fillColor = {params.fillColor.red, params.fillColor.green, params.fillColor.blue, params.fillColor.alpha}
+  trigger.action.textToAll(-1, params.id, {x = params.point.x, y = 0, z = params.point.y }, color, fillColor, params.fontSize, params.readOnly, params.text)
+  return GRPC.success({})
+end
+
+GRPC.methods.textToAllBatch = function(params)
+  for _, mark in ipairs(params.marks) do
+    local color = {mark.color.red, mark.color.green, mark.color.blue, mark.color.alpha}
+    local fillColor = {mark.fillColor.red, mark.fillColor.green, mark.fillColor.blue, mark.fillColor.alpha}
+    trigger.action.textToAll(-1, mark.id, {x = mark.point.x, y = 0, z = mark.point.y }, color, fillColor, mark.fontSize, mark.readOnly, mark.text)
+  end
+  return GRPC.success({})
+end
+

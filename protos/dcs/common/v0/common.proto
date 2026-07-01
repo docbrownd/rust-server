@@ -479,3 +479,9 @@ message Zone {
   uint32 type = 5;
   repeated Vector verticies = 6;
 }
+
+message DCSPosition {
+  double x = 1;
+  double y = 2;
+  double alt = 3;
+}

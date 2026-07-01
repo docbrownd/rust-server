@@ -63,6 +63,12 @@ service TriggerService {
 
   rpc GetAllZones(GetZonesRequest) returns (ZonesResponse) {}
 
+  rpc MarkToAllBatch(MarkToAllBatchRequest) returns (MarkToAllBatchResponse) {}
+
+  rpc TextToAll(TextToAllRequest) returns (TextToAllResponse) {}
+  rpc TextToAllBatch(TextToAllBatchRequest) returns (TextToAllResponse) {}
+
+
 }
 
 message GetZonesRequest {
@@ -287,4 +293,46 @@ message MarkupToCoalitionRequest {
 
 message MarkupToCoalitionResponse {
   uint32 id = 1;
+}
+
+message MarkupToAllForBatchRequest {
+  Shape shape = 1;
+  dcs.common.v0.Coalition coalition = 2;
+  uint32 id = 3;
+  repeated dcs.common.v0.DCSPosition points = 4;
+  Color border_color = 5;
+  Color fill_color = 6;
+  LineType line_type = 7;
+  bool read_only = 8;
+  string message = 9;
+}
+
+
+message MarkToAllBatchResponse {
+
+}
+
+message MarkToAllBatchRequest {
+  repeated MarkupToAllForBatchRequest marks = 1;
+}
+
+
+message TextToAllRequest {
+  uint32 id = 1;
+  dcs.common.v0.DCSPosition point = 2;
+  Color color = 3;
+  Color fill_color = 4;
+  uint32 font_size = 5;
+  bool read_only = 6;
+  string text = 7;
+}
+
+message TextToAllBatchRequest {
+  repeated TextToAllRequest marks = 1;
+
+}
+
+
+message TextToAllResponse {
+
 }

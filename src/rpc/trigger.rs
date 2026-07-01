@@ -141,4 +141,29 @@ impl TriggerService for MissionRpc {
         let res = self.request("getZones", request).await?;
         Ok(Response::new(res))
     }
+
+    async fn mark_to_all_batch(
+        &self,
+        request: Request<trigger::v0::MarkToAllBatchRequest>,
+    ) -> Result<Response<trigger::v0::MarkToAllBatchResponse>, Status> {
+        let res = self.request("markToAllBatch", request).await?;
+        Ok(Response::new(res))
+    }
+
+    async fn text_to_all(
+        &self,
+        request: Request<trigger::v0::TextToAllRequest>,
+    ) -> Result<Response<trigger::v0::TextToAllResponse>, Status> {
+        let res = self.request("textToAll", request).await?;
+        Ok(Response::new(res))
+    }
+
+    async fn text_to_all_batch(
+        &self,
+        request: Request<trigger::v0::TextToAllBatchRequest>,
+    ) -> Result<Response<trigger::v0::TextToAllResponse>, Status> {
+        let res = self.request("textToAllBatch", request).await?;
+        Ok(Response::new(res))
+    }
+
 }
