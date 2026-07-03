@@ -305,6 +305,7 @@ message MarkupToAllForBatchRequest {
   LineType line_type = 7;
   bool read_only = 8;
   string message = 9;
+  optional double radius = 10;
 }
 
 

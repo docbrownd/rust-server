@@ -268,6 +268,8 @@ GRPC.methods.getZones = function(params)
 end
 
 GRPC.methods.markToAllBatch = function(params)
+    GRPC.printTableToLog(params)
+
   for _, mark in ipairs(params.marks) do
     local packedParams = {}
     for _, value in ipairs(mark.points) do
@@ -289,7 +291,12 @@ GRPC.methods.markToAllBatch = function(params)
     table.insert(packedParams, mark.readOnly)
     table.insert(packedParams, mark.message)
 
+
     trigger.action.markupToAll(mark.shape, -1, mark.id, unpack(packedParams))
+    if mark.radius then
+      trigger.action.setMarkupRadius(mark.id, mark.radius)
+    end
+
   end
   return GRPC.success({})
 
