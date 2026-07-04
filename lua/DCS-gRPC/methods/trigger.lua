@@ -268,8 +268,6 @@ GRPC.methods.getZones = function(params)
 end
 
 GRPC.methods.markToAllBatch = function(params)
-    GRPC.printTableToLog(params)
-
   for _, mark in ipairs(params.marks) do
     local packedParams = {}
     for _, value in ipairs(mark.points) do
