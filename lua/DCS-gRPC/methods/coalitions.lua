@@ -265,39 +265,47 @@ GRPC.methods.getPlayerUnits = function(params)
   return GRPC.success({units = result})
 end
 
--- copy of getGroups but return all active unit in game 
-GRPC.methods.getAllGroundUnits = function(params)
-  local result = {}
-   -- https://wiki.hoggitworld.com/view/DCS_func_getGroups
-  local  groups = coalition.getGroups(coalition.side.RED, Group.Category.GROUND)
 
-  for _, group in ipairs(groups) do
-    if group == nil then
-      return GRPC.errorNotFound("group does not exist")
-    end
-    for i, unit in ipairs(group:getUnits()) do
-      if Object.isExist(unit) then  
-        local atts = unit:getDesc().attributes
-        
+local unitAttributesCache = {}
 
-        local attributs = {}
-        for att, val in pairs(atts) do 
-          if val then 
-            attributs[#attributs + 1] = att
-          end 
-        end
-        result[#result + 1] = {
-          unit = GRPC.exporters.unit(unit),
-          life = unit:getLife(),
-          isActive = unit:isActive(),
-          attributs = attributs
-          --
-        }
-      end 
+local function getUnitAttributes(unit)
+  local attributs = {}
+  local count = 0
+  if unitAttributesCache[unit:getTypeName()] then return unitAttributesCache[unit:getTypeName()] end 
+  for att, val in pairs(unit:getDesc().attributes) do
+    if val then
+      count = count + 1
+      attributs[count] = att
     end
   end
+  unitAttributesCache[unit:getTypeName()] = attributs
+  return attributs
+end
 
-
+-- copy of getGroups but return all unit in game 
+GRPC.methods.getAllGroundUnits = function(params)
+  local result = {}
+  local resultCount = 0
+  for _, c in pairs(coalition.side) do
+    env.info("coalition : " .. tostring(c))
+    local  groups = coalition.getGroups(c, Group.Category.GROUND)
+    for _, group in ipairs(groups) do    
+      if group == nil then
+        return GRPC.errorNotFound("group does not exist")
+      end
+      for i, unit in ipairs(group:getUnits()) do
+        if Object.isExist(unit) then  
+          resultCount = resultCount + 1
+          result[resultCount] = {
+            unit = GRPC.exporters.unit(unit),
+            life = unit:getLife(),
+            isActive = unit:isActive(),
+            attributs = getUnitAttributes(unit)
+          }
+        end 
+      end
+    end
+  end
   return GRPC.success({units = result})
 end
 
