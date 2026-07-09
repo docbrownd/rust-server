@@ -485,3 +485,9 @@ message DCSPosition {
   double y = 2;
   double alt = 3;
 }
+
+message Vec2 {
+  double x = 1;
+  double y = 2;
+}
+

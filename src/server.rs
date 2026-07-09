@@ -21,6 +21,8 @@ use stubs::timer::v0::timer_service_server::TimerServiceServer;
 use stubs::trigger::v0::trigger_service_server::TriggerServiceServer;
 use stubs::unit::v0::unit_service_server::UnitServiceServer;
 use stubs::world::v0::world_service_server::WorldServiceServer;
+use stubs::airbase::v0::airbase_service_server::AirbaseServiceServer;
+use stubs::land::v0::land_service_server::LandServiceServer;
 use tokio::runtime::{Handle, Runtime};
 use tokio::sync::oneshot::{self, Receiver};
 use tokio::sync::{Mutex, mpsc};
@@ -267,6 +269,8 @@ async fn try_run(
         .add_service(NetServiceServer::new(mission_rpc.clone()))
         .add_service(TimerServiceServer::new(mission_rpc.clone()))
         .add_service(TriggerServiceServer::new(mission_rpc.clone()))
+        .add_service(AirbaseServiceServer::new(mission_rpc.clone()))
+        .add_service(LandServiceServer::new(mission_rpc.clone()))
         .add_service(SrsServiceServer::new(Srs::new(
             tts_config,
             srs_config,

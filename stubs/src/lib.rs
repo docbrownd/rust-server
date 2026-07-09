@@ -19,6 +19,8 @@ pub mod trigger;
 pub mod unit;
 mod utils;
 pub mod world;
+pub mod airbase;
+pub mod land;
 
 #[cfg(test)]
 mod tests {

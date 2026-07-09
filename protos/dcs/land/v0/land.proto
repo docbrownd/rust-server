@@ -1,0 +1,36 @@
+syntax = "proto3";
+package dcs.land.v0;
+import "dcs/common/v0/common.proto";
+option csharp_namespace = "RurouniJones.Dcs.Grpc.V0.Land";
+option go_package = "github.com/DCS-gRPC/go-bindings/dcs/v0/land";
+
+// https://wiki.hoggitworld.com/view/DCS_singleton_land
+service LandService {
+
+  rpc FindPathOnRoads(FindPathOnRoadsRequest) returns (FindPathOnRoadsResponse) {}
+  rpc GetClosestPointOnRoads(GetClosestPointOnRoadsRequest) returns (GetClosestPointOnRoadsResponse) {}
+
+}
+
+message FindPathOnRoadsRequest {
+    dcs.common.v0.Vec2 start = 1;
+    dcs.common.v0.Vec2 dest = 2;
+}
+
+
+
+message FindPathOnRoadsResponse {
+    repeated dcs.common.v0.Vec2 roads = 1;
+}
+
+
+message GetClosestPointOnRoadsRequest {
+    double x = 1;
+    double y = 2;
+}
+
+
+message GetClosestPointOnRoadsResponse {
+    double x = 1;
+    double y = 2;
+}

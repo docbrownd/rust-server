@@ -200,6 +200,8 @@ dofile(GRPC.luaPath .. [[methods\timer.lua]])
 dofile(GRPC.luaPath .. [[methods\trigger.lua]])
 dofile(GRPC.luaPath .. [[methods\unit.lua]])
 dofile(GRPC.luaPath .. [[methods\world.lua]])
+dofile(GRPC.luaPath .. [[methods\airbase.lua]])
+dofile(GRPC.luaPath .. [[methods\land.lua]])
 
 --
 -- RPC request handler

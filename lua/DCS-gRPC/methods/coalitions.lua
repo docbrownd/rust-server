@@ -287,7 +287,6 @@ GRPC.methods.getAllGroundUnits = function(params)
   local result = {}
   local resultCount = 0
   for _, c in pairs(coalition.side) do
-    env.info("coalition : " .. tostring(c))
     local  groups = coalition.getGroups(c, Group.Category.GROUND)
     for _, group in ipairs(groups) do    
       if group == nil then

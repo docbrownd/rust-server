@@ -1,0 +1,28 @@
+syntax = "proto3";
+package dcs.airbase.v0;
+import "dcs/common/v0/common.proto";
+option csharp_namespace = "RurouniJones.Dcs.Grpc.V0.Airbase";
+option go_package = "github.com/DCS-gRPC/go-bindings/dcs/v0/airbase";
+
+// https://wiki.hoggitworld.com/view/DCS_Class_Airbase
+service AirbaseService {
+
+  rpc ForceCaptures(ForceCapturesResquest) returns (ForceCapturesResponse) {}
+  rpc ForceCapture(CaptureInfos) returns (ForceCaptureResponse) {}
+
+}
+
+message CaptureInfos {
+  string name = 1;
+  dcs.common.v0.Coalition coalition = 2;
+}
+
+message ForceCapturesResquest {
+  repeated CaptureInfos infos = 1;
+}
+
+message ForceCapturesResponse {
+}
+
+message ForceCaptureResponse {
+}
