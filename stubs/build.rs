@@ -69,6 +69,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "dcs.common.v0.UnitMission",
             "#[serde(from = \"UnitMissionIntermediate\")]",
         )
+        .field_attribute(
+            "dcs.mission.v0.StreamEventsResponse.TaskCallbackEvent.details",
+            r#"#[serde(with = "crate::utils::proto_struct")]"#,
+        )
         .build_server(cfg!(feature = "server"))
         .build_client(cfg!(feature = "client"))
         .compile_protos(&["../protos/dcs/dcs.proto"], &["../protos"])?;

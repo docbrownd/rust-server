@@ -548,3 +548,16 @@ GRPC.methods.removeGroupCommandItem = function(params)
   missionCommands.removeItemForGroup(group:getID(), params.path)
   return GRPC.success({})
 end
+
+GRPC.methods.taskCallback = function (details, ...)
+  local event = {
+    type = "taskCallback",
+    details = details,
+    group = GRPC.exporters.group(...)
+  }
+
+  GRPC.event({
+    time = timer.getTime(),
+    event = event
+  })
+end
