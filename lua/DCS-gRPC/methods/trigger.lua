@@ -317,3 +317,16 @@ GRPC.methods.textToAllBatch = function(params)
   return GRPC.success({})
 end
 
+GRPC.methods.setMarkupColorFill = function(params)
+  local fillColor = {params.fillColor.red, params.fillColor.green, params.fillColor.blue, params.fillColor.alpha}
+  local id = params.id
+  trigger.action.setMarkupColorFill(id, fillColor) 
+  return GRPC.success({})
+end
+
+GRPC.methods.setMarkupText = function(params)
+  local id = params.id
+  local text = params.text
+  trigger.action.setMarkupText(id, text)
+  return GRPC.success({})
+end

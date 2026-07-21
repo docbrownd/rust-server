@@ -68,6 +68,28 @@ service TriggerService {
   rpc TextToAll(TextToAllRequest) returns (TextToAllResponse) {}
   rpc TextToAllBatch(TextToAllBatchRequest) returns (TextToAllResponse) {}
 
+  rpc SetMarkupColorFill(MarkupColorFillRequest) returns (MarkupColorFillResponse) {}
+
+  rpc SetMarkupText(MarkupTextRequest) returns (MarkupTextResponse) {}
+
+}
+  
+
+message MarkupColorFillRequest {
+  uint32 id = 1;
+  Color fill_color = 2;
+}
+
+message MarkupTextRequest {
+  uint32 id = 1;
+  string text = 2;
+}
+
+message MarkupTextResponse {
+
+}
+
+message MarkupColorFillResponse {
 
 }
 

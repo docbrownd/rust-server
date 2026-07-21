@@ -166,4 +166,20 @@ impl TriggerService for MissionRpc {
         Ok(Response::new(res))
     }
 
+    async fn set_markup_color_fill(
+        &self,
+        request: Request<trigger::v0::MarkupColorFillRequest>,
+    ) -> Result<Response<trigger::v0::MarkupColorFillResponse>, Status> {
+        let res = self.request("setMarkupColorFill", request).await?;
+        Ok(Response::new(res))
+    }
+
+    async fn set_markup_text(
+        &self,
+        request: Request<trigger::v0::MarkupTextRequest>,
+    ) -> Result<Response<trigger::v0::MarkupTextResponse>, Status> {
+        let res = self.request("setMarkupText", request).await?;
+        Ok(Response::new(res))
+    }
+
 }
