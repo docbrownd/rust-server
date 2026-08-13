@@ -404,6 +404,7 @@ message StreamEventsResponse {
     // The slot's identifier
     string slot_id = 3;
     string ucid = 4;
+    string name = 5;
   }
 
   /**

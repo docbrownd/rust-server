@@ -92,7 +92,8 @@ use crate::coalition::v0::UnitMission;
         player_name: Option<String>,
         group: Option<Group>,
         number_in_group: u32,
-        raw_transform: Option<RawTransform>
+        raw_transform: Option<RawTransform>,
+        category : Option<i32>
     }
 
     impl From<UnitIntermediate> for Unit {
@@ -107,6 +108,7 @@ use crate::coalition::v0::UnitMission;
                 group,
                 number_in_group,
                 raw_transform,
+                category
             } = i;
             let transform: Transform = Transform::from(raw_transform.unwrap_or_default());
             Unit {
@@ -120,7 +122,8 @@ use crate::coalition::v0::UnitMission;
                 velocity: Some(transform.velocity),
                 player_name,
                 group,
-                number_in_group
+                number_in_group,
+                category
             }
         }
     }

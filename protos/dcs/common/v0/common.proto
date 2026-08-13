@@ -50,6 +50,16 @@ enum Coalition {
   COALITION_BLUE = 3;
 }
 
+enum Category {
+  // protolint:disable:next ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH
+  CATEGORY_NOTHING      = 0;
+  CATEGORY_AIRPLANE      = 1;
+  CATEGORY_HELICOPTER    = 2;
+  CATEGORY_GROUND        = 3;
+  CATEGORY_SHIP          = 4;
+  CATEGORY_TRAIN         = 5;
+}
+
 /**
  * Countries in DCS
  *
@@ -236,6 +246,7 @@ message Unit {
   // The number of this unit in the group. Does not change as units are
   // destroyed
   uint32 number_in_group = 11;
+  optional Category category = 12;
 }
 
 /**

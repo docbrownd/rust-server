@@ -30,7 +30,8 @@ GRPC.exporters.unit = function(unit)
     playerName = Unit.getPlayerName(unit),
     group = locgroup,
     numberInGroup = unit:getNumber(),
-    rawTransform = GRPC.exporters.rawTransform(unit)
+    rawTransform = GRPC.exporters.rawTransform(unit),
+    category = unit:getDesc().category + 1 -- Increment for non zero-indexed gRPC enum
   }
 end
 
