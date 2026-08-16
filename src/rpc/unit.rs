@@ -85,4 +85,13 @@ impl UnitService for MissionRpc {
         let res = self.request("getSensors", request).await?;
         Ok(Response::new(res))
     }
+
+    
+    async fn is_alive(
+        &self,
+        request: Request<unit::v0::IsAliveRequest>,
+    ) -> Result<Response<unit::v0::IsAliveResponse>, Status> {
+        let res = self.request("isAlive", request).await?;
+        Ok(Response::new(res))
+    }
 }

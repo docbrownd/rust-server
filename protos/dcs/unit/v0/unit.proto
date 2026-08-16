@@ -37,7 +37,18 @@ service UnitService {
 
   // https://wiki.hoggitworld.com/view/DCS_func_getSensors
   rpc GetSensors(GetSensorsRequest) returns (GetSensorsResponse) {}
+
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse) {}
 }
+
+message IsAliveRequest {
+  uint32 id = 1;
+}
+
+message IsAliveResponse {
+  bool alive = 1;
+}
+
 
 message GetRadarRequest {
   string name = 1;

@@ -58,6 +58,19 @@ GRPC.methods.getDrawArgumentValue = function (params)
   })
 end
 
+GRPC.methods.isAlive = function(params)
+  local unit = Unit.getByName(Unit.getName({ id_ = params.id }))
+  local alive = true
+  if unit == nil or Object.isExist(unit) == false or unit:isActive() == false or unit.getLife() < 1 then
+    alive = false
+  end
+
+  return GRPC.success({
+    alive = alive
+  })
+end
+
+
 GRPC.methods.getUnitPosition = function(params)
   -- https://wiki.hoggitworld.com/view/DCS_func_getByName
   local unit = Unit.getByName(params.name)
