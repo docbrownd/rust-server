@@ -84,14 +84,19 @@ function handler.onPlayerTryConnect(addr, name, ucid, id)
 end
 
 function handler.onPlayerDisconnect(id, reason)
-  grpc.event({
-    time = DCS.getModelTime(),
-    event = {
-      type = "disconnect",
-      id = id,
-      reason = reason + 1, -- Increment for non zero-indexed gRPC enum
-    },
-  })
+  local playerInfo = net.get_player_info(id)
+  if playerInfo ~= nil then 
+
+    grpc.event({
+      time = DCS.getModelTime(),
+      event = {
+        type = "disconnect",
+        id = id,
+        ucid = playerInfo.ucid,
+        reason = reason + 1, -- Increment for non zero-indexed gRPC enum
+      },
+    })
+  end
 end
 
 function handler.onPlayerChangeSlot(playerId)

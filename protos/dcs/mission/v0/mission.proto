@@ -451,6 +451,7 @@ message StreamEventsResponse {
     uint32 id = 1;
     // The reason a player disconnected for.
     DisconnectReason reason = 2;
+    string ucid = 3;
   }
 
   message MissionCommandEvent {
