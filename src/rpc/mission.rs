@@ -129,6 +129,15 @@ impl MissionService for MissionRpc {
         Ok(Response::new(res))
     }
 
+    async fn add_group_sub_menus_and_commands(
+        &self,
+        request: Request<mission::v0::AddGroupSubMenusAndCommandsRequest>,
+    ) -> Result<Response<mission::v0::AddGroupSubMenusAndCommandsResponse>, Status> {
+        let res = self.request("addGroupCommandMenus", request).await?;
+        Ok(Response::new(res))
+    }
+
+
     async fn remove_coalition_command_item(
         &self,
         request: Request<mission::v0::RemoveCoalitionCommandItemRequest>,

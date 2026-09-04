@@ -81,6 +81,24 @@ service MissionService {
   // The ID will change upon mission change or server restart.
   rpc GetSessionId(GetSessionIdRequest)
       returns (GetSessionIdResponse) {}
+
+  rpc AddGroupSubMenusAndCommands(AddGroupSubMenusAndCommandsRequest)
+    returns (AddGroupSubMenusAndCommandsResponse) {}
+}
+
+message MenuCommand {
+  string display = 1;
+  repeated string path = 2;
+  optional google.protobuf.Struct details = 3;
+}
+
+message AddGroupSubMenusAndCommandsRequest {
+  string group_name = 1;
+  repeated MenuCommand menu = 2;
+}
+
+message AddGroupSubMenusAndCommandsResponse {
+
 }
 
 message StreamEventsRequest {

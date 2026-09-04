@@ -561,3 +561,22 @@ GRPC.methods.taskCallback = function (details, ...)
     event = event
   })
 end
+
+GRPC.methods.addGroupCommandMenus = function(params)
+  local group = Group.getByName(params.groupName)
+  if group == nil then
+    return GRPC.errorNotFound("group does not exist")
+  end
+  for i,menu in ipairs(params.menu) do
+    if menu.details and type(menu.details) == "table" then
+      local pp = {
+        details = menu.details,
+        group = group
+      }
+      missionCommands.addCommandForGroup(group:getID(), menu.display, menu.path, groupCommandCallback, pp)
+    else 
+      missionCommands.addSubMenuForGroup(group:getID(), menu.display, menu.path)
+    end
+  end
+  return GRPC.success({})
+end

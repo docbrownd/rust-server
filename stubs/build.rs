@@ -58,6 +58,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             r#"#[serde(with = "crate::utils::proto_struct")]"#,
         )
         .field_attribute(
+            "dcs.mission.v0.MenuCommand.details",
+            r#"#[serde(with = "crate::utils::proto_struct")]"#,
+        )
+        .field_attribute(
             "dcs.mission.v0.AddGroupCommandRequest.details",
             r#"#[serde(with = "crate::utils::proto_struct")]"#,
         )
